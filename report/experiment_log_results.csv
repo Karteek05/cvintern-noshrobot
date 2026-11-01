@@ -1,0 +1,13 @@
+trial,strategy,mean_iou,mean_dice,n,note
+T1_otsu_gray_raw,otsu_gray,0.2445671929621491,0.3238310209615322,88,"Baseline: global Otsu on grayscale, no cleanup at all."
+T2_otsu_gray_clean,otsu_gray,0.22880133553921816,0.26488563649490166,88,Add morphological open/close + hole fill + shape filter.
+T3_otsu_lab_l_clean,otsu_lab_l,0.21462081384775475,0.2508682686982142,88,Swap grayscale for Lab L channel (illumination-focused).
+T4_hsv_sv_clean,hsv_sv,0.28980632398144407,0.3331278535383851,88,"Low-saturation & high-value mask, targeting white eggshell."
+T5_adaptive_gray_clean,adaptive_gray,0.10369036127200978,0.10729093149505298,88,Local adaptive threshold instead of a single global Otsu split.
+T6_canny_fill_clean,canny_fill,0.1387962555711154,0.15131214312518426,88,"Edge-based: Canny + closing + contour fill, for boundary-only cases."
+T7_grabcut_clean,grabcut,0.39993331526188347,0.49250285238337954,88,Classical GrabCut seeded with a fixed center-biased rectangle.
+T8_lab_l_grabcut_fallback,otsu_lab_l,0.21462081384775475,0.2508682686982142,88,"Hybrid: fast Otsu-Lab-L path, falls back to GrabCut when the Otsu between-class contrast is below a learned threshold."
+T9_final_with_watershed,otsu_lab_l,0.21198231147537,0.25143620681089723,88,"Same as T8 but with watershed splitting enabled, to separate touching/adjacent eggs (e.g. two eggs in a pot) into instances."
+T10_grabcut_watershed,grabcut,0.42726761041424377,0.523988288729141,88,"T7 (best so far) + watershed splitting, to check whether multi-egg images (e.g. the boiling pot) need instance splitting."
+T11_grabcut_mask_init,grabcut_mask_init,0.2900504337189973,0.34149614669820083,88,"Replace T7's fixed center rectangle with an Otsu-Lab-L-derived probable-foreground mask as the GrabCut seed, so it adapts to eggs that are off-center or a different size than usual."
+T12_grabcut_multiseed,grabcut_multiseed,0.17401524839470026,0.21633570835322088,88,Follow-up after inspecting Task 3's worst cases: T10's single fixed center rectangle misses eggs that lie outside it (e.g. 3 eggs spread across the full frame width). Seed GrabCut once per Otsu-Lab-L connected component instead of once globally.

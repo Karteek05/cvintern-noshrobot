@@ -1,0 +1,15 @@
+{
+  "n_images": 21,
+  "mean_iou": 0.5238488070813725,
+  "median_iou": 0.6948263000852515,
+  "mean_dice": 0.6169048865469767,
+  "mean_precision": 0.6518752658630748,
+  "mean_recall": 0.7763385959778792,
+  "mean_pixel_accuracy": 0.891158505394345,
+  "frac_iou_below_0.5": 0.42857142857142855,
+  "frac_iou_above_0.8": 0.19047619047619047,
+  "n_excluded_no_sam_gt": 1,
+  "excluded_image_ids": [
+    "not_damaged_12_jpg.rf.339e366cebec5c32e751e8500aa12f3e"
+  ]
+}
